@@ -1,0 +1,72 @@
+import csv
+from os import path
+
+#methods
+def leta(): #FOR ADD/CREATE
+    if path.exists("areaperimeter.csv"):
+                fp = open("areaperimeter.csv", "a", newline='')
+                fprint = csv.writer(fp)
+
+                s1 = float(input('Side 1: '))
+                s2 = float(input('Side 2: '))
+                s3 = float(input('Side 3: '))
+#re
+                out_list = [s1, s2, s3]
+                fprint.writerow(out_list)
+    else:
+                fp = open("areaperimeter.csv", "w", newline='')
+                fprint = csv.writer(fp)
+                fprint.writerow(['Side 1', 'Side 2', 'Side 3'])
+
+                s1 = float(input('Side 1: '))
+                s2 = float(input('Side 2: '))
+                s3 = float(input('Side 3: '))
+                out_list = [s1, s2, s3]
+                fprint.writerow(out_list)
+    fp.close()
+
+def letb(): #FOR VIEWING
+    with open('areaperimeter.csv','r') as fp:
+                fscanf=csv.reader(fp)
+                next(fscanf)
+                print('\nSide 1 \tSide 2 \tSide 3 \tArea \tPerimeter')
+                for i in fscanf:
+                    z = float(i[0]) 
+                    y = float(i[1])
+                    x = float(i[2])
+                    print('%.2f\t' %z,end=' ')
+                    print('%.2f\t' %y,end=' ')
+                    print('%.2f\t' %x,end='')
+                    ar = 0.5 * float(z) * float(y)
+                    print('%.2f\t' %ar ,end=' ')
+                    per = float(z) + float(y) + float(x)
+                    print('%.2f' %per)
+    fp.close()
+
+
+#MAIN CHOICES
+while True:
+    try:
+        print("A] ADD/CREATE")
+        print("B] VIEW")
+        print("C] QUIT")
+        choice = input('SELECT AN OPTION: ')[0]
+    
+        #FOR ADD/CREATE
+        if choice == 'A' or choice == 'a':
+            leta()
+
+        #FOR VIEWING
+        elif choice == 'B' or choice == 'b':
+            letb()
+                
+        #FOR QUIT OPTION
+        elif choice == 'C' or choice == 'c':
+            break
+        
+        #FOR WRONG INPUTS
+        else:
+            raise Exception("Invalid Input! Please input a character!")
+
+    except Exception as z:
+        print("Error: ", z)
